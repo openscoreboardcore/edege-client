@@ -114,6 +114,34 @@ export default function ManagerPage() {
 						Reset
 					</Button>
 				</div>
+				<div>
+					<Button
+						onClick={() => {
+							sendJsonMessage({
+								type: "publish",
+								topic: "screen-1",
+								message: {
+									status: "match",
+								},
+							});
+						}}
+					>
+						On
+					</Button>
+					<Button
+						onClick={() => {
+							sendJsonMessage({
+								type: "publish",
+								topic: "screen-1",
+								message: {
+									status: "off",
+								},
+							});
+						}}
+					>
+						Off
+					</Button>
+				</div>
 			</div>
 		</div>
 	);

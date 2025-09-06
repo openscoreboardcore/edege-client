@@ -2,6 +2,7 @@ import Match from "@/components/match";
 import useWebSocket from "react-use-websocket";
 
 import SponsorCarousell from "@/components/SponsorCarousell";
+import pubsub from "@/lib/pubsub";
 import topicRouter from "@/lib/ws/handelSocketMessages";
 import { useEffect, useState } from "react";
 import logo from "../assets/mhcLogoWhite.svg";
@@ -16,7 +17,7 @@ export type wsMessage = {
 
 export default function Index() {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const [status, setStatus] = useState<Status>("match");
+	const [status, setStatus] = useState<Status>("off");
 
 	const WS_URL =
 		"ws://" +
@@ -50,8 +51,17 @@ export default function Index() {
 	useEffect(() => {
 		if (readyState === WebSocket.OPEN) {
 			sendJsonMessage({ type: "subscribe", topic: "match-N2213" });
+			sendJsonMessage({ type: "subscribe", topic: "screen-1" });
 		}
 	}, [readyState, sendJsonMessage]);
+
+	useEffect(() => {
+		const unsubscribe = pubsub.subscribe("screen-update", (data) => {
+			setStatus(data.status);
+		});
+
+		return () => unsubscribe();
+	}, []);
 
 	const sponsorLogos = [
 		"https://swinckels.com/etc/designs/swinckels/images/logo-swinkels.png",

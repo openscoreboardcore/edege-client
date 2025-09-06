@@ -21,8 +21,11 @@ topicRouter.register(
 	// { "type": "publish", "topic": "match-N2213", "message": {"homeTeam": "team1", "awayTeam": "team2", "status": "in_progress", "time": 120, "score": {"home": 1, "away": 2}}, "part": "Kwart 1" }
 );
 
-topicRouter.register("scoreBoard-{id}", (params, payload) =>
-	console.log("scoreBoard message", params, payload)
-);
+topicRouter.register("screen-{id}", (params, payload) => {
+	console.log("scoreBoard message", params, payload);
+	if (payload && typeof payload === "object") {
+		pubsub.publish("screen-update", payload);
+	}
+});
 
 export default topicRouter;
