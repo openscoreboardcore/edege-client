@@ -18,7 +18,12 @@ export default function Index() {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [status, setStatus] = useState<Status>("match");
 
-	const WS_URL = "ws://localhost:3000/ws";
+	const WS_URL =
+		"ws://" +
+		import.meta.env.VITE_SERVER_HOST +
+		":" +
+		import.meta.env.VITE_SERVER_PORT +
+		"/ws";
 	const { sendJsonMessage, readyState } = useWebSocket(WS_URL, {
 		share: false,
 		shouldReconnect: () => true,
