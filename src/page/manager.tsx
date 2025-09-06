@@ -31,7 +31,8 @@ export default function ManagerPage() {
 					awayTeam: {
 						name: teamBName,
 						score: scoreTeamB,
-						logo: "https://storage.googleapis.com/publiq_be_production/files/projecten/UDB/_660x660_crop_center-center_82_line/UiTlabel.png",
+						// logo: "https://storage.googleapis.com/publiq_be_production/files/projecten/UDB/_660x660_crop_center-center_82_line/UiTlabel.png",
+						logo: "https://lirp.cdn-website.com/32c872e6/dms3rep/multi/opt/Logo+MHV+kleur_M-1920w.png",
 					},
 
 					status: "in_progress",
