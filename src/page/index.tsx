@@ -67,7 +67,8 @@ export default function Index() {
 		"https://swinckels.com/etc/designs/swinckels/images/logo-swinkels.png",
 		// "https://upload.wikimedia.org/wikipedia/commons/4/44/Google-flutter-logo.svg",
 		// "https://www.vectorlogo.zone/logos/typescriptlang/typescriptlang-icon.svg",
-		"/logo-mhc-transparant-zwart.png",
+		// "/logo-mhc-transparant-zwart.png",
+		"/mhc-rabo.png",
 	] as string[];
 
 	switch (status) {
