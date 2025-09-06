@@ -27,7 +27,12 @@ export default function ManagerPage() {
 				topic: "match-N2213",
 				message: {
 					homeTeam: { name: teamAName, score: scoreTeamA },
-					awayTeam: { name: scoreTeamB, score: scoreTeamB },
+					awayTeam: {
+						name: scoreTeamB,
+						score: scoreTeamB,
+						logo: "https://storage.googleapis.com/publiq_be_production/files/projecten/UDB/_660x660_crop_center-center_82_line/UiTlabel.png",
+					},
+
 					status: "in_progress",
 					time: "",
 					part: "",
