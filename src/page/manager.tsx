@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
 import useWebSocket from "react-use-websocket";
 import { useLocalStorage } from "usehooks-ts";
@@ -100,6 +101,18 @@ export default function ManagerPage() {
 							className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
 						/>
 					</div>
+				</div>
+				<div>
+					<Button
+						onClick={() => {
+							setScoreTeamA(0);
+							setTeamAName("Thuis");
+							setScoreTeamB(0);
+							setTeamBName("Uit");
+						}}
+					>
+						Reset
+					</Button>
 				</div>
 			</div>
 		</div>
