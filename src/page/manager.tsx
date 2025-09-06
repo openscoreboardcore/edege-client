@@ -21,7 +21,7 @@ export default function ManagerPage() {
 	const [scoreTeamB, setScoreTeamB] = useLocalStorage("scoreTeamB", 0);
 	const [teamBName, setTeamBName] = useLocalStorage("teamBName", "Uit");
 
-	useEffect(() => {
+	const sendScreenUpdate = () => {
 		if (readyState === WebSocket.OPEN) {
 			sendJsonMessage({
 				type: "publish",
@@ -40,6 +40,10 @@ export default function ManagerPage() {
 				},
 			});
 		}
+	};
+
+	useEffect(() => {
+		sendScreenUpdate();
 		console.log({ teamAName, scoreTeamA, teamBName, scoreTeamB });
 	}, [
 		teamAName,
@@ -109,11 +113,15 @@ export default function ManagerPage() {
 							setTeamAName("Thuis");
 							setScoreTeamB(0);
 							setTeamBName("Uit");
+							sendScreenUpdate();
 						}}
 					>
 						Reset
 					</Button>
 				</div>
+				<br />
+				<br />
+				<p>Screen Control:</p>
 				<div>
 					<Button
 						onClick={() => {
@@ -124,6 +132,9 @@ export default function ManagerPage() {
 									status: "match",
 								},
 							});
+							setTimeout(function () {
+								sendScreenUpdate();
+							}, 1500);
 						}}
 					>
 						On
