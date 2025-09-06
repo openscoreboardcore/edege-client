@@ -29,7 +29,7 @@ export default function ManagerPage() {
 				message: {
 					homeTeam: { name: teamAName, score: scoreTeamA },
 					awayTeam: {
-						name: scoreTeamB,
+						name: teamBName,
 						score: scoreTeamB,
 						logo: "https://storage.googleapis.com/publiq_be_production/files/projecten/UDB/_660x660_crop_center-center_82_line/UiTlabel.png",
 					},
