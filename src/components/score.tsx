@@ -16,7 +16,7 @@ export default function Score({
 	return (
 		<div className="flex flex-col items-center col-span-2">
 			<span className="text-3xl text-gray-300 mt-2 font-mono">{matchPart}</span>
-			<span className="text-9xl font-extrabold font-mono">
+			<span className="text-8xl font-extrabold font-mono">
 				{scoreTeamA} - {scoreTeamB}
 			</span>
 			<span className="text-5xl text-gray-300 mt-2 font-mono">{matchTime}</span>
