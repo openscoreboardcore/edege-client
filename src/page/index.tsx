@@ -56,7 +56,7 @@ export default function Index() {
 
 	useEffect(() => {
 		if (readyState === WebSocket.OPEN) {
-			sendJsonMessage({ type: "subscribe", topic: "field-veld3" });
+			sendJsonMessage({ type: "subscribe", topic: "field-veld1" });
 			sendJsonMessage({ type: "subscribe", topic: "screen-1" });
 			if (currentMatchId && currentMatchId !== "") {
 				sendJsonMessage({
