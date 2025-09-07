@@ -23,7 +23,7 @@ export default function Scoreboard() {
 		return () => unsubscribe();
 	}, []);
 
-	if (!matchData) return <div>Loading...</div>;
+	if (!matchData) return <div className="text-white bg-black">Loading...</div>;
 
 	return (
 		<div className="w-screen h-full bg-black flex items-center justify-center p-2">

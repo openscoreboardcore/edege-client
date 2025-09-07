@@ -4,7 +4,8 @@ import useWebSocket from "react-use-websocket";
 import SponsorCarousell from "@/components/SponsorCarousell";
 import pubsub from "@/lib/pubsub";
 import topicRouter from "@/lib/ws/handelSocketMessages";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useLocalStorage } from "usehooks-ts";
 import logo from "../assets/mhcLogoWhite.svg";
 
 export type Status = "off" | "logo" | "match" | "sponsor" | "schema";
@@ -17,7 +18,11 @@ export type wsMessage = {
 
 export default function Index() {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const [status, setStatus] = useState<Status>("off");
+	const [status, setStatus] = useLocalStorage<Status>("screenStatus", "");
+	const [currentMatchId, setCurrentMatchId] = useLocalStorage<string>(
+		"currentMatchId",
+		""
+	);
 
 	const WS_URL =
 		"ws://" +
@@ -36,7 +41,12 @@ export default function Index() {
 					typeof event.data === "string"
 						? JSON.parse(event.data)
 						: (event.data as wsMessage);
-				topicRouter.dispatch(data?.topic, data?.type, data?.message);
+				topicRouter.dispatch(
+					data?.topic,
+					data?.type,
+					data?.message,
+					sendJsonMessage
+				);
 			} catch (err) {
 				console.error("Failed to parse WebSocket message:", err);
 			}
@@ -50,14 +60,34 @@ export default function Index() {
 
 	useEffect(() => {
 		if (readyState === WebSocket.OPEN) {
-			sendJsonMessage({ type: "subscribe", topic: "match-N2213" });
+			sendJsonMessage({ type: "subscribe", topic: "field-veld3" });
 			sendJsonMessage({ type: "subscribe", topic: "screen-1" });
+			if (currentMatchId && currentMatchId !== "") {
+				sendJsonMessage({
+					type: "subscribe",
+					topic: `match-${currentMatchId}`,
+				});
+			}
 		}
 	}, [readyState, sendJsonMessage]);
 
 	useEffect(() => {
 		const unsubscribe = pubsub.subscribe("screen-update", (data) => {
-			setStatus(data.status);
+			if (status !== data.status) {
+				setStatus(data.status);
+			}
+		});
+
+		return () => unsubscribe();
+	}, []);
+
+	useEffect(() => {
+		const unsubscribe = pubsub.subscribe("matchID-update", (data) => {
+			if (currentMatchId !== data) {
+				setCurrentMatchId(data);
+				console.log("New matchID", data, " ", currentMatchId);
+				sendJsonMessage({ type: "unsubscribe", topic: "all" }); // reset socket
+			}
 		});
 
 		return () => unsubscribe();
@@ -105,5 +135,7 @@ export default function Index() {
 			);
 		case "schema":
 			return <div>Schema</div>;
+		default:
+			return <div className="bg-black w-full h-screen"></div>;
 	}
 }

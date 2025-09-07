@@ -28,4 +28,13 @@ topicRouter.register("screen-{id}", (params, payload) => {
 	}
 });
 
+topicRouter.register("field-{id}", (params, payload) => {
+	console.log("scoreBoard message fieldUpdate", params, payload);
+	if (payload && typeof payload === "object") {
+		if (payload.matchId) {
+			pubsub.publish("matchID-update", payload.matchId);
+		}
+	}
+});
+
 export default topicRouter;

@@ -1,7 +1,10 @@
+import type { SendJsonMessage } from "react-use-websocket/dist/lib/types";
+
 type Handler = (
 	params: Record<string, string>,
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	payload: any,
+	sendJsonMessage: SendJsonMessage,
 	action: string
 ) => void;
 
@@ -25,14 +28,19 @@ export class TopicRouter {
 		this.routes.push({ pattern, regex, keys, handler });
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	dispatch(topic: string, action: string, payload: any) {
+	dispatch(
+		topic: string,
+		action: string,
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		payload: any,
+		sendJsonMessage: SendJsonMessage
+	) {
 		for (const { regex, keys, handler } of this.routes) {
 			const match = topic.match(regex);
 			if (match) {
 				const params: Record<string, string> = {};
 				keys.forEach((key, i) => (params[key] = match[i + 1]));
-				handler(params, payload, action);
+				handler(params, payload, sendJsonMessage, action);
 				return true;
 			}
 		}
