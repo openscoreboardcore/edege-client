@@ -4,8 +4,7 @@ import useWebSocket from "react-use-websocket";
 import SponsorCarousell from "@/components/SponsorCarousell";
 import pubsub from "@/lib/pubsub";
 import topicRouter from "@/lib/ws/handelSocketMessages";
-import { useEffect } from "react";
-import { useLocalStorage } from "usehooks-ts";
+import { useEffect, useState } from "react";
 import logo from "../assets/mhcLogoWhite.svg";
 
 export type Status = "off" | "logo" | "match" | "sponsor" | "schema";
@@ -18,11 +17,8 @@ export type wsMessage = {
 
 export default function Index() {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const [status, setStatus] = useLocalStorage<Status>("screenStatus", "");
-	const [currentMatchId, setCurrentMatchId] = useLocalStorage<string>(
-		"currentMatchId",
-		""
-	);
+	const [status, setStatus] = useState<Status>("off");
+	const [currentMatchId, setCurrentMatchId] = useState<string>("");
 
 	const WS_URL =
 		"ws://" +
@@ -73,23 +69,27 @@ export default function Index() {
 
 	useEffect(() => {
 		const unsubscribe = pubsub.subscribe("screen-update", (data) => {
-			if (status !== data.status) {
-				setStatus(data.status);
-			}
+			setStatus((prevStatus) => {
+				if (prevStatus !== data) {
+					console.log("New status", data, "previous", prevStatus);
+					return data;
+				}
+				return prevStatus;
+			});
 		});
-
 		return () => unsubscribe();
 	}, []);
 
 	useEffect(() => {
 		const unsubscribe = pubsub.subscribe("matchID-update", (data) => {
-			if (currentMatchId !== data) {
-				setCurrentMatchId(data);
-				console.log("New matchID", data, " ", currentMatchId);
-				sendJsonMessage({ type: "unsubscribe", topic: "all" }); // reset socket
-			}
+			setCurrentMatchId((prevId) => {
+				if (prevId !== data) {
+					sendJsonMessage({ type: "unsubscribe", topic: "all" }); // reset socket
+					return data;
+				}
+				return prevId;
+			});
 		});
-
 		return () => unsubscribe();
 	}, []);
 

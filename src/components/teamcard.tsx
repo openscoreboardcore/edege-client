@@ -10,7 +10,7 @@ export default function TeamCard({ team }: { team: Team }) {
 	return (
 		<div className="flex flex-col items-center">
 			<img src={team.logo || logo} alt="" className="w-34 h-34" />
-			<span className="font-bold text-xl">{team.name}</span>
+			<span className="font-bold text-2xl pt-8">{team.name}</span>
 		</div>
 	);
 }

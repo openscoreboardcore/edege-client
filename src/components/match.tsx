@@ -23,20 +23,27 @@ export default function Scoreboard() {
 		return () => unsubscribe();
 	}, []);
 
-	if (!matchData) return <div className="text-white bg-black">Loading...</div>;
+	if (!matchData)
+		return <div className="text-white bg-black h-full">Loading...</div>;
 
 	return (
 		<div className="w-screen h-full bg-black flex items-center justify-center p-2">
-			<Card className="w-full h-fit bg-black text-white rounded-2xl shadow-xl border border-gray-700">
+			<Card className="w-full h-fit bg-black text-white rounded-2xl shadow-xl border border-black">
 				<CardContent className="grid grid-cols-4 md:flex-row items-center justify-between gap-4">
 					<TeamCard team={matchData.homeTeam} />
-
-					<Score
-						scoreTeamA={matchData.homeTeam.score}
-						scoreTeamB={matchData.awayTeam.score}
-						matchTime={matchData.time}
-						matchPart={matchData.part}
-					/>
+					<div className="col-span-2 w-full h-fit">
+						<Score
+							scoreTeamA={matchData.homeTeam.score}
+							scoreTeamB={matchData.awayTeam.score}
+							matchTime={matchData.time}
+							matchPart={matchData.part}
+						/>
+						{matchData.status === "Upcoming" && (
+							<div className="text-red-400  text-center text-2xl font-bold pt-4">
+								Start wedstrijd in hockey.nl app!
+							</div>
+						)}
+					</div>
 
 					<TeamCard team={matchData.awayTeam} />
 				</CardContent>

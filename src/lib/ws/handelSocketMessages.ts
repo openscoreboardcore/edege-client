@@ -24,7 +24,7 @@ topicRouter.register(
 topicRouter.register("screen-{id}", (params, payload) => {
 	console.log("scoreBoard message", params, payload);
 	if (payload && typeof payload === "object") {
-		pubsub.publish("screen-update", payload);
+		pubsub.publish("screen-update", payload.status);
 	}
 });
 
