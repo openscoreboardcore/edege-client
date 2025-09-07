@@ -39,7 +39,7 @@ export default function Scoreboard() {
 							matchPart={matchData.part}
 						/>
 						{matchData.status === "Upcoming" && (
-							<div className="text-red-400  text-center text-2xl font-bold pt-4">
+							<div className="text-red-400  text-center text-xl font-bold pt-4">
 								Start wedstrijd in hockey.nl app!
 							</div>
 						)}
