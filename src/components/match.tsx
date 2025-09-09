@@ -29,7 +29,7 @@ export default function Scoreboard() {
 	return (
 		<div className="w-screen h-full bg-black flex items-center justify-center p-2">
 			<Card className="w-full h-fit bg-black text-white rounded-2xl shadow-xl border border-black">
-				<CardContent className="grid grid-cols-4 md:flex-row items-center justify-between gap-4">
+				<CardContent className="grid grid-cols-4 md:flex-row items-center justify-between gap-2">
 					<TeamCard team={matchData.homeTeam} />
 					<div className="col-span-2 w-full h-fit">
 						<Score
