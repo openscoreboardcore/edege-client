@@ -56,8 +56,14 @@ export default function Index() {
 
 	useEffect(() => {
 		if (readyState === WebSocket.OPEN) {
-			sendJsonMessage({ type: "subscribe", topic: "field-veld3" });
-			sendJsonMessage({ type: "subscribe", topic: "screen-1" });
+			sendJsonMessage({
+				type: "subscribe",
+				topic: "field-" + import.meta.env.VITE_FIELD_ID,
+			});
+			sendJsonMessage({
+				type: "subscribe",
+				topic: "screen-" + import.meta.env.VITE_SCREEN_ID,
+			});
 			if (currentMatchId && currentMatchId !== "") {
 				sendJsonMessage({
 					type: "subscribe",
