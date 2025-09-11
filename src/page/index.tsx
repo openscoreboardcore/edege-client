@@ -100,11 +100,10 @@ export default function Index() {
 	}, []);
 
 	const sponsorLogos = [
-		"https://swinckels.com/etc/designs/swinckels/images/logo-swinkels.png",
-		// "https://upload.wikimedia.org/wikipedia/commons/4/44/Google-flutter-logo.svg",
-		// "https://www.vectorlogo.zone/logos/typescriptlang/typescriptlang-icon.svg",
-		// "/logo-mhc-transparant-zwart.png",
+		// "https://swinckels.com/etc/designs/swinckels/images/logo-swinkels.png",
 		"/mhc-rabo.png",
+		"/MHC-Ben-JIJ-GOUD-WAARD.png",
+		"/MHC-GEZOCHT-BAR.png",
 	] as string[];
 
 	switch (status) {
