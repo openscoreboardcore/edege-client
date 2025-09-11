@@ -14,7 +14,7 @@ export default function SponsorCarousell({ sponsors }: { sponsors: string[] }) {
 			}}
 			plugins={[
 				Autoplay({
-					delay: 6000,
+					delay: 15000,
 				}),
 			]}
 		>
