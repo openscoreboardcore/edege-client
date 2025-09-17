@@ -28,7 +28,11 @@ export default function TeamCard({ team }: { team: Team }) {
 	return (
 		<div className="flex flex-col items-center">
 			<img src={team.logo} alt="" className="w-34 h-34 object-contain" />
-			<span className="font-bold text-2xl pt-8">{team.name}</span>
+			<span className="font-bold text-xl pt-6">{team.name.split(" ")[0]}</span>
+			<span className="font-bold text-3xl ">
+				{team.name.split(" ").slice(1).join(" ")}
+				{/* removes club name / initials */}
+			</span>
 		</div>
 	);
 }
