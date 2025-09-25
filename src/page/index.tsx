@@ -104,7 +104,7 @@ export default function Index() {
 		// "/mhc-rabo.png",
 		"/MHC-Ben-JIJ-GOUD-WAARD.png",
 		"/MHC-GEZOCHT-BAR.png",
-		"/MHC-clubactie.png",
+		"/MHC-clubactie-1.png",
 	] as string[];
 
 	switch (status) {
