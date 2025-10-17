@@ -12,7 +12,7 @@ export default defineConfig({
 		},
 	},
 	server: {
-		host: "0.0.0.0",
-		allowedHosts: ["."], // equivalent to "all hosts" for some older Vite versions
+		host: true,
+		allowedHosts: true,
 	},
 });
