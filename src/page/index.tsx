@@ -105,7 +105,7 @@ export default function Index() {
 		// "/MHC-Ben-JIJ-GOUD-WAARD.png",
 		// "/MHC-GEZOCHT-BAR.png",
 		// "/MHC-clubactie-1.png",
-		"/MHC-OKTOBERFEST.png",
+		// "/MHC-OKTOBERFEST.png",
 		"/MHC-JUNGLEPARTY.png",
 		"/MHC-Pre-ChristmasParty.png",
 	] as string[];
