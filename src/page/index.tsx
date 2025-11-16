@@ -102,11 +102,11 @@ export default function Index() {
 	const sponsorLogos = [
 		// "https://swinckels.com/etc/designs/swinckels/images/logo-swinkels.png",
 		// "/mhc-rabo.png",
-		// "/MHC-Ben-JIJ-GOUD-WAARD.png",
+		"/MHC-Ben-JIJ-GOUD-WAARD.png",
 		// "/MHC-GEZOCHT-BAR.png",
 		// "/MHC-clubactie-1.png",
 		// "/MHC-OKTOBERFEST.png",
-		"/MHC-JUNGLEPARTY.png",
+		// "/MHC-JUNGLEPARTY.png",
 		"/MHC-Pre-ChristmasParty.png",
 	] as string[];
 
