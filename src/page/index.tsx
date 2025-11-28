@@ -20,8 +20,11 @@ export default function Index() {
 	const [status, setStatus] = useState<Status>("off");
 	const [currentMatchId, setCurrentMatchId] = useState<string>("");
 
+	const wsSSL = import.meta.env.VITE_USE_WS_SSL === "true";
+	const wsProtocol = wsSSL ? "wss://" : "ws://";
+
 	const WS_URL =
-		"ws://" +
+		wsProtocol +
 		import.meta.env.VITE_SERVER_HOST +
 		":" +
 		import.meta.env.VITE_SERVER_PORT +
