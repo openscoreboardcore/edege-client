@@ -44,7 +44,7 @@ export default function Index() {
 					data?.topic,
 					data?.type,
 					data?.message,
-					sendJsonMessage
+					sendJsonMessage,
 				);
 			} catch (err) {
 				console.error("Failed to parse WebSocket message:", err);
@@ -110,7 +110,7 @@ export default function Index() {
 		// "/MHC-clubactie-1.png",
 		// "/MHC-OKTOBERFEST.png",
 		// "/MHC-JUNGLEPARTY.png",
-		"/MHC-Pre-ChristmasParty.png",
+		// "/MHC-Pre-ChristmasParty.png",
 	] as string[];
 
 	switch (status) {
