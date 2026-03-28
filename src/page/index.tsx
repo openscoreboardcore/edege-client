@@ -20,6 +20,12 @@ export default function Index() {
 	const [status, setStatus] = useState<Status>("off");
 	const [currentMatchId, setCurrentMatchId] = useState<string>("");
 
+	const url = new URL(window.location.href);
+	const fieldParam = url.searchParams.get("field");
+	console.log("", fieldParam);
+
+	const filedID = fieldParam ? fieldParam : import.meta.env.VITE_FIELD_ID;
+
 	const wsSSL = import.meta.env.VITE_USE_WS_SSL === "true";
 	const wsProtocol = wsSSL ? "wss://" : "ws://";
 
@@ -61,7 +67,7 @@ export default function Index() {
 		if (readyState === WebSocket.OPEN) {
 			sendJsonMessage({
 				type: "subscribe",
-				topic: "field-" + import.meta.env.VITE_FIELD_ID,
+				topic: "field-" + filedID,
 			});
 			sendJsonMessage({
 				type: "subscribe",
