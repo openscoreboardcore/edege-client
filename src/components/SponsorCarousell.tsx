@@ -3,6 +3,14 @@ import Autoplay from "embla-carousel-autoplay";
 import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel";
 
 export default function SponsorCarousell({ sponsors }: { sponsors: string[] }) {
+	return (
+		<iframe
+			src="https://sponsors.mhcflevoland.nl/?scroll=1&theme=dark"
+			className="w-full h-[110px]"
+			title="Sponsor Carousell"
+		/>
+	);
+
 	if (sponsors.length === 0) return null;
 
 	return (
