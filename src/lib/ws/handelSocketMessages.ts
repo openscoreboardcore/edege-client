@@ -13,7 +13,7 @@ topicRouter.register(
 		if (payload && typeof payload === "object") {
 			pubsub.publish("match-update", payload);
 		}
-	}
+	},
 	// MatchController.handleMessage(params, payload)
 
 	// { "type": "subscribe", "topic": "match-N2213" }
@@ -34,6 +34,13 @@ topicRouter.register("field-{id}", (params, payload) => {
 		if (payload.matchId) {
 			pubsub.publish("matchID-update", payload.matchId);
 		}
+	}
+});
+
+topicRouter.register("clock", (params, payload) => {
+	console.log("clock message", params, payload);
+	if (payload && typeof payload === "object") {
+		pubsub.publish("clock-update", payload.time);
 	}
 });
 

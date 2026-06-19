@@ -1,11 +1,11 @@
 import Match from "@/components/match";
 import useWebSocket from "react-use-websocket";
 
+import Logo from "@/components/logo";
 import SponsorCarousell from "@/components/SponsorCarousell";
 import pubsub from "@/lib/pubsub";
 import topicRouter from "@/lib/ws/handelSocketMessages";
 import { useEffect, useState } from "react";
-import logo from "../assets/mhcLogoWhite.svg";
 
 export type Status = "off" | "logo" | "match" | "sponsor" | "schema";
 export type wsMessage = {
@@ -73,6 +73,10 @@ export default function Index() {
 				type: "subscribe",
 				topic: "screen-" + import.meta.env.VITE_SCREEN_ID,
 			});
+			sendJsonMessage({
+				type: "subscribe",
+				topic: "clock",
+			});
 			if (currentMatchId && currentMatchId !== "") {
 				sendJsonMessage({
 					type: "subscribe",
@@ -124,16 +128,7 @@ export default function Index() {
 			return <div className="bg-black w-full h-screen"></div>;
 
 		case "logo":
-			return (
-				<div className="h-screen w-full flex flex-col">
-					<div className="flex-grow bg-black w-full h-screen grid">
-						<img src={logo} alt="Logo" className="m-auto w-[50vh] h-[50vh]" />
-					</div>
-					<div>
-						<SponsorCarousell sponsors={sponsorLogos} />
-					</div>
-				</div>
-			);
+			return <Logo />;
 		case "match":
 			return (
 				<div className="h-screen w-full flex flex-col">
@@ -141,14 +136,14 @@ export default function Index() {
 						<Match />
 					</div>
 					<div>
-						<SponsorCarousell sponsors={sponsorLogos} />
+						<SponsorCarousell />
 					</div>
 				</div>
 			);
 		case "sponsor":
 			return (
 				<div className="h-screen w-full flex items-center bg-black">
-					<SponsorCarousell sponsors={sponsorLogos} />
+					<SponsorCarousell />
 				</div>
 			);
 		case "schema":

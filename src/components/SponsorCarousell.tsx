@@ -1,44 +1,9 @@
-import Autoplay from "embla-carousel-autoplay";
-
-import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel";
-
-export default function SponsorCarousell({ sponsors }: { sponsors: string[] }) {
+export default function SponsorCarousell() {
 	return (
 		<iframe
 			src="https://sponsors.mhcflevoland.nl/?scroll=1&theme=dark"
 			className="w-full h-[110px]"
 			title="Sponsor Carousell"
 		/>
-	);
-
-	if (sponsors.length === 0) return null;
-
-	return (
-		<Carousel
-			className="w-full h-fit pb-4 bg-black"
-			opts={{
-				align: "start",
-				loop: true,
-			}}
-			plugins={[
-				Autoplay({
-					delay: 15000,
-				}),
-			]}
-		>
-			<CarouselContent className="bg-black">
-				{Array.from(sponsors).map((src, index) => (
-					<CarouselItem key={index}>
-						<div className="flex items-center justify-center h-fit bg-black">
-							<img
-								src={src}
-								alt={`Sponsor ${index + 1}`}
-								className="object-fit h-32"
-							/>
-						</div>
-					</CarouselItem>
-				))}
-			</CarouselContent>
-		</Carousel>
 	);
 }
