@@ -64,27 +64,23 @@ export default function Index() {
 	});
 
 	useEffect(() => {
-		if (readyState === WebSocket.OPEN) {
-			sendJsonMessage({
-				type: "subscribe",
-				topic: "field-" + filedID,
-			});
-			sendJsonMessage({
-				type: "subscribe",
-				topic: "screen-" + import.meta.env.VITE_SCREEN_ID,
-			});
-			sendJsonMessage({
-				type: "subscribe",
-				topic: "clock",
-			});
-			if (currentMatchId && currentMatchId !== "") {
-				sendJsonMessage({
-					type: "subscribe",
-					topic: `match-${currentMatchId}`,
-				});
-			}
-		}
-	}, [readyState, sendJsonMessage]);
+		if (readyState !== WebSocket.OPEN) return;
+
+		sendJsonMessage({
+			type: "subscribe",
+			topic: `field-${filedID}`,
+		});
+
+		sendJsonMessage({
+			type: "subscribe",
+			topic: `screen-${import.meta.env.VITE_SCREEN_ID}`,
+		});
+
+		sendJsonMessage({
+			type: "subscribe",
+			topic: "clock",
+		});
+	}, [readyState, sendJsonMessage, filedID]);
 
 	useEffect(() => {
 		const unsubscribe = pubsub.subscribe("screen-update", (data) => {
@@ -100,15 +96,32 @@ export default function Index() {
 	}, []);
 
 	useEffect(() => {
-		const unsubscribe = pubsub.subscribe("matchID-update", (data) => {
-			setCurrentMatchId((prevId) => {
-				if (prevId !== data) {
-					sendJsonMessage({ type: "unsubscribe", topic: "all" }); // reset socket
-					return data;
-				}
-				return prevId;
-			});
+		if (readyState !== WebSocket.OPEN) return;
+
+		// Remove all previous match subscriptions.
+		sendJsonMessage({
+			type: "unsubscribe",
+			topic: "match-*",
 		});
+
+		// Subscribe to the currently assigned match, if any.
+		if (currentMatchId) {
+			sendJsonMessage({
+				type: "subscribe",
+				topic: `match-${currentMatchId}`,
+			});
+		}
+	}, [currentMatchId, readyState, sendJsonMessage]);
+
+	useEffect(() => {
+		const unsubscribe = pubsub.subscribe("matchID-update", (data) => {
+			const nextMatchId = data == null ? "" : String(data);
+
+			setCurrentMatchId((prevId) =>
+				prevId === nextMatchId ? prevId : nextMatchId,
+			);
+		});
+
 		return () => unsubscribe();
 	}, []);
 
