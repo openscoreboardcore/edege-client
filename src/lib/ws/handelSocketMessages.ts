@@ -28,13 +28,12 @@ topicRouter.register("screen-{id}", (params, payload) => {
 	}
 });
 
-topicRouter.register("field-{id}", (params, payload) => {
-	console.log("scoreBoard message fieldUpdate", params, payload);
-	if (payload && typeof payload === "object") {
-		if (payload.matchId) {
-			pubsub.publish("matchID-update", payload.matchId);
-		}
-	}
+topicRouter.register("field-{id}", (_params, payload) => {
+	if (!payload || typeof payload !== "object") return;
+	if (!("matchId" in payload) || !("status" in payload)) return;
+
+	pubsub.publish("matchID-update", payload.matchId ?? null);
+	pubsub.publish("screen-update", payload.status);
 });
 
 topicRouter.register("clock", (params, payload) => {

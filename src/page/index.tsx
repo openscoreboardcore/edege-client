@@ -73,11 +73,6 @@ export default function Index() {
 
 		sendJsonMessage({
 			type: "subscribe",
-			topic: `screen-${import.meta.env.VITE_SCREEN_ID}`,
-		});
-
-		sendJsonMessage({
-			type: "subscribe",
 			topic: "clock",
 		});
 	}, [readyState, sendJsonMessage, filedID]);
@@ -132,10 +127,11 @@ export default function Index() {
 		case "logo":
 			return <Logo />;
 		case "match":
+			if (!currentMatchId) return <Logo />;
 			return (
 				<div className="h-screen w-full flex flex-col">
 					<div className="flex-grow">
-						<Match />
+						<Match key={currentMatchId} />
 					</div>
 					<div>
 						<SponsorCarousell />
